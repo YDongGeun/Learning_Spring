@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05827120-927c-4910-8c16-4fdb6caafa36" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/super-coding/src/main/resources/application-dev.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/super-coding/src/main/resources/application-local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/super-coding/src/main/resources/application-prod.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/super-coding/src/main/java/com/github/supercoding/web/controller/ElectronicStoreController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/super-coding/src/main/java/com/github/supercoding/web/dto/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/super-coding/src/main/java/com/github/supercoding/web/dto/ItemBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/super-coding/src/main/java/com/github/supercoding/web/dto/Spec.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/super-coding/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/super-coding/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +101,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.github.supercoding.web.dto" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\YDG\Desktop\Super_Coding\specialized_week\Learning_Spring\super-coding\src\test\java\com\github\supercoding" />
     </key>
@@ -137,7 +140,7 @@
       <workItem from="1709364742782" duration="921000" />
       <workItem from="1709366757189" duration="13000" />
       <workItem from="1709366888664" duration="346000" />
-      <workItem from="1709367240590" duration="3493000" />
+      <workItem from="1709367240590" duration="8962000" />
     </task>
     <servers />
   </component>
