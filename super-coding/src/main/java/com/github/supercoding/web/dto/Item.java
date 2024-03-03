@@ -1,6 +1,9 @@
 package com.github.supercoding.web.dto;
 
+import com.github.supercoding.respository.ItemEntity;
+
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class Item {
     private String id;
@@ -25,6 +28,14 @@ public class Item {
         this.type = itemBody.getType();
         this.price = itemBody.getPrice();
         this.spec = itemBody.getSpec();
+    }
+
+    public Item(ItemEntity itemEntity) {
+        this.id = String.valueOf(itemEntity.getId());
+        this.type = itemEntity.getType();
+        this.name = itemEntity.getName();
+        this.price = itemEntity.getPrice();
+        this.spec = new Spec(itemEntity.getCpu(), itemEntity.getCapacity());
     }
 
     public Item(String id, String name, String type, Integer price, String cpu, String capacity) {

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Learning_Spring.iml" filepath="$PROJECT_DIR$/.idea/Learning_Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/super-coding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/super-coding.main.iml" />
     </modules>
   </component>
 </project>

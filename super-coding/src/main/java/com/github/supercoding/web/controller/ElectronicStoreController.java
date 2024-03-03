@@ -1,7 +1,11 @@
 package com.github.supercoding.web.controller;
 
+import com.github.supercoding.respository.ElectronicStoreItemRepository;
+import com.github.supercoding.respository.ItemEntity;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
+import lombok.Getter;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -11,6 +15,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ElectronicStoreController {
+
+    private ElectronicStoreItemRepository electronicStoreItemRepository;
+
+    public ElectronicStoreController(ElectronicStoreItemRepository electronicStoreItemRepository) {
+        this.electronicStoreItemRepository = electronicStoreItemRepository;
+    }
 
     private static int serialItemId = 1;
     private List<Item> items = Arrays.asList(new Item(String.valueOf(serialItemId++), "Apple iPhone 12 Pro Max", "Smartphone", 1490000, "A14 Bionic", "512GB"),
@@ -22,60 +32,59 @@ public class ElectronicStoreController {
 
     @GetMapping("/items")
     public List<Item> findAllItem() {
-        return items;
+        List<ItemEntity> itemEntities = electronicStoreItemRepository.findAllItems();
+        return itemEntities.stream().map(Item::new).collect(Collectors.toList());
     }
 
     @PostMapping("/items")
     public String registerItem(@RequestBody ItemBody itemBody) {
-        Item newItem = new Item(serialItemId++, itemBody);
-        items.add(newItem);
-        return "ID: " + newItem.getId();
+        ItemEntity itemEntity = new ItemEntity(
+                null,
+                itemBody.getName(),
+                itemBody.getType(),
+                itemBody.getPrice(),
+                itemBody.getSpec().getCpu(),
+                itemBody.getSpec().getCapacity());
+
+        Integer itemId = electronicStoreItemRepository.saveItem(itemEntity);
+        return "ID: " + itemId;
     }
 
     @GetMapping("/items/{id}")
     public Item findItemByPathId(@PathVariable String id) {
-        return items.stream()
-                .filter((item -> item.getId().equals(id)))
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
+        return electronicStoreItemRepository.findItemByPathId(id);
     }
 
     @GetMapping("/items-query")
     public Item getItemByQueryId(@RequestParam("id") String id) {
-        return items.stream()
-                .filter((item) -> item.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
+        return electronicStoreItemRepository.queryFindItem(id);
     }
 
     @GetMapping("/items-queries")
     public List<Item> getItemByQueryId(@RequestParam("id") List<String> ids) {
-        return items.stream()
-                .filter((item) -> ids.contains(item.getId()))
-                .collect(Collectors.toList());
+        return electronicStoreItemRepository.queryFindItem(ids);
     }
 
     @DeleteMapping("/items/{id}")
     public String deleteItemById(@PathVariable String id) {
-        items = items.stream()
-                .filter((item) -> !item.getId().equals(id))
-                .collect(Collectors.toList());
+        electronicStoreItemRepository.deleteItem(id);
         return "Object with id =" + id + " has been deleted";
     }
 
     @PutMapping("/items/{id}")
     public Item updateItem(@PathVariable String id, @RequestBody ItemBody itemBody) {
-        Item itemFounded = items.stream()
-                .filter((item) -> item.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
 
-        items.remove(itemFounded);
+        ItemEntity itemEntity = new ItemEntity(
+                Integer.valueOf(id),
+                itemBody.getName(),
+                itemBody.getType(),
+                itemBody.getPrice(),
+                itemBody.getSpec().getCpu(),
+                itemBody.getSpec().getCapacity());
 
-        Item newItem = new Item(id, itemBody);
-        items.add(newItem);
+        ItemEntity itemEntityUpdated = electronicStoreItemRepository.updateItemEntity(id, itemEntity);
 
-        return newItem;
+        return new Item(itemEntityUpdated);
     }
 
 }
